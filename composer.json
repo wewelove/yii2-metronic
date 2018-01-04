@@ -1,0 +1,27 @@
+{
+    "name": "iamok/yii2-metronic",
+    "description": "Yii2 集成 Metronic 4.6 主题",
+    "keywords": ["yii2", "theme", "metronic"],
+    "type": "yii2-extension",
+    "license": "BSD",
+    "support": {
+        "issues": "https://github.com/wewelove/yii2-metronic/issues",
+        "wiki": "https://github.com/wewelove/yii2-metronic/wiki",
+        "source": "https://github.com/wewelove/yii2-metronic"
+    },
+    "authors": [
+        {
+            "name": "wewelove",
+            "email": "wewelove88@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "kartik-v/yii2-grid": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "iamok\\metronic\\": ""
+        }
+    }
+}
