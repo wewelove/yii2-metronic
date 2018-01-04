@@ -4,9 +4,19 @@ use iamok\metronic\Metronic;
 use iamok\metronic\widgets\Menu;
 use iamok\metronic\widgets\Badge;
 ?>
+
+<button type="button" class="quick-sidebar-toggler" data-toggle="collapse">
+    <span class="sr-only">Toggle Quick Sidebar</span>
+    <i class="icon-logout"></i>
+    <div class="quick-sidebar-notification">
+        <span class="badge badge-danger">7</span>
+    </div>
+</button>
+
 <a href="javascript:;" class="page-quick-sidebar-toggler">
     <i class="icon-login"></i>
 </a>
+
 <div class="page-quick-sidebar-wrapper" data-close-on-body-click="false">
     <div class="page-quick-sidebar">
         <ul class="nav nav-tabs">

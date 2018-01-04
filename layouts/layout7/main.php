@@ -28,7 +28,7 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl($asset->sourcePath);
     <?= Html::csrfMetaTags() ?>
     <?php $this->head() ?>
 </head>
-<body <?= Layout::getHtmlOptions('body') ?> >
+<body <?= Layout::getHtmlOptions('body', [], true) ?> >
 <?php $this->beginBody() ?>
 
     <?= $this->render('parts/header.php', ['directoryAsset' => $directoryAsset]) ?>

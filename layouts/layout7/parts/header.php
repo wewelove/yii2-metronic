@@ -13,7 +13,24 @@ use iamok\metronic\widgets\Badge;
             <button class="menu-trigger"><img src="<?= $directoryAsset ?>/layouts/layout7/img/m_toggler.png" alt=""> </button>
             <div class="menu-overlay menu-overlay-bg-transparent">
                 <div class="menu-overlay-content">
+                    <?php
+                    $items = [
+                        ['label' => 'Home', 'url' => ['site/index']],
+                        ['label' => 'About', 'url' => ['site/about']],
+                        ['label' => 'Contact', 'url' => ['site/contact']],
+                        ['label' => 'Signup', 'url' => ['site/signup']],
+                        ['label' => 'Login', 'url' => ['site/login']],
+                    ];
 
+                    $options = [
+                        'class' => 'menu-overlay-nav text-uppercase',
+                        'item' => function ($item, $index) {
+                            return Html::tag('li', Html::a($item['label'], $item['url']));
+                        }
+                    ]; 
+
+                    echo Html::ul($items, $options);
+                    ?>
                 </div>
             </div>
             <div class="menu-bg-overlay">
