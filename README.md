@@ -1,4 +1,9 @@
 # yii2-metronic
+
+[![version](https://img.shields.io/packagist/v/iamok/yii2-metronic.svg?style=flat-square)](https://packagist.org/packages/iamok/yii2-metronic)
+[![Download](https://img.shields.io/packagist/dt/iamok/yii2-metronic.svg?style=flat-square)](https://packagist.org/packages/iamok/yii2-metronic)
+[![Issues](https://img.shields.io/github/issues/wewelove/yii2-metronic.svg?style=flat-square)](https://github.com/wewelove/yii2-metronic/issues)
+
 Yii2 [Metronic theme](http://www.keenthemes.com/) integration. Currently is supported the version 4.6
 
 
