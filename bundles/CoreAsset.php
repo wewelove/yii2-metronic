@@ -13,6 +13,7 @@ class CoreAsset extends BaseAssetBundle {
      * @var array depended packages
      */
     public $depends = [
+        'iamok\metronic\bundles\YiiAsset',
         'iamok\metronic\bundles\FontAsset',
     ];
 

@@ -18,6 +18,7 @@ class ThemeAsset extends BaseAssetBundle {
     public $depends = [
         'iamok\metronic\bundles\CoreAsset',
         'iamok\metronic\bundles\StyleBasedAsset',
+        
     ];
 
     /**
