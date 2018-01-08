@@ -24,7 +24,7 @@ use yii\helpers\Html;
  *     'size' => Button::SIZE_SMALL,
  *     'disabled' => false,
  *     'block' => false,
- *     'type' => Button::TYPE_M_BLUE,
+ *     'type' => Button::TYPE_PRIMARY,
  * ]);
  * ```
  */
@@ -61,6 +61,11 @@ class Button extends \yii\bootstrap\Button {
      * Valid values are 'xs', 'sm', 'lg'.
      */
     public $size;
+
+    /**
+     * @var bool Indicates whether button is submit or not.
+     */
+    public $submit = false;
 
     /**
      * @var string The button type.
@@ -138,7 +143,7 @@ class Button extends \yii\bootstrap\Button {
             Html::addCssClass($this->options, 'btn-block');
         }
 
-        $this->options['type'] = 'button';
+        $this->options['type'] = $this->submit ? 'submit' : 'button';
     }
 
     /**
@@ -155,8 +160,6 @@ class Button extends \yii\bootstrap\Button {
         }
 
         echo Html::tag($this->tagName, $label, $this->options);
-
-        $this->registerPlugin('button');
     }
 
 }
