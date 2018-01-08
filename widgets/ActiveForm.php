@@ -203,8 +203,9 @@ class ActiveForm extends \yii\widgets\ActiveForm {
                     if (isset($matches[1]))
                     {
                         $offset = $matches[1];
+                        
                         Html::addCssClass($rowOptions, 'col-md-offset-' . $offset);
-                        Html::addCssClass($rowOptions, 'col-md-' . 12 - $offset);
+                        Html::addCssClass($rowOptions, 'col-md-' . (12 - $offset));
                         $buttons = Html::tag('div', $buttons, $rowOptions);
                     }
                     break;
