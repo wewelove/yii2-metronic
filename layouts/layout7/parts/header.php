@@ -18,14 +18,25 @@ use iamok\metronic\widgets\Badge;
                         ['label' => 'Home', 'url' => ['site/index']],
                         ['label' => 'About', 'url' => ['site/about']],
                         ['label' => 'Contact', 'url' => ['site/contact']],
-                        ['label' => 'Signup', 'url' => ['site/signup']],
-                        ['label' => 'Login', 'url' => ['site/login']],
                     ];
+
+                    if (Yii::$app->user->isGuest) {
+                        $items[] = ['label' => 'Signup', 'url' => ['site/signup']];
+                        $items[] = ['label' => 'Login', 'url' => ['site/login']];
+                    } else {
+                        $items[] = ['label' => 'Logout', 'url' => ['site/logout'], 'options'=>[
+                            'data-method' => 'post'
+                        ]];
+                    }
 
                     $options = [
                         'class' => 'menu-overlay-nav text-uppercase',
                         'item' => function ($item, $index) {
-                            return Html::tag('li', Html::a($item['label'], $item['url']));
+                            $label   = $item['label'];
+                            $url     = $item['url'];
+                            $options = isset($item['options']) ? $item['options'] : [];
+                            
+                            return Html::tag('li', Html::a($label, $url, $options));
                         }
                     ]; 
 
@@ -43,7 +54,7 @@ use iamok\metronic\widgets\Badge;
             </a>
         </div>
         
-        <?php if (Yii::$app->user->isGuest) { ?>
+        <?php if (!Yii::$app->user->isGuest) { ?>
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
@@ -251,8 +262,7 @@ use iamok\metronic\widgets\Badge;
                                 <i class="icon-lock"></i> Lock Screen </a>
                         </li>
                         <li>
-                            <a href="login.html">
-                                <i class="icon-key"></i> Log Out </a>
+                            <a href="/site/logout" data-method="post"> <i class="icon-key"></i> Log Out </a>
                         </li>
                     </ul>
                 </li>
