@@ -14,8 +14,8 @@ The extension is in development and the only way to use this fork is through thr
 
 
 So add it to your composer.json with this composer command:
-```
-php composer.phar require iamok/yii2-metronic dev-master
+```sh
+composer require --prefer-dist iamok/yii2-metronic
 ```
 
  
@@ -23,6 +23,7 @@ Then You've to unzip the contents of your metronic Zip theme inside the ```@webr
 
 You should have a folder structure like this:
 
+```sh
 * app/
     * web/
         * metronic/
@@ -31,14 +32,14 @@ You should have a folder structure like this:
             * _start
             * theme
             * theme_rtl
-      
+```     
 
 
 Quick Start
 -----------
 Edit your ```config/web.php``` configuration file and add the metronic component:
 
-```
+```php
 'components' => [
     'metronic'=>[
         'class'=>'iamok\metronic\Metronic',
@@ -62,6 +63,7 @@ In the case the link is invalid, you've to build it by yourself :)
 
 My vendor folder looks like this:
 
+```sh
 * app/
     * [...]
     * vendor/
@@ -73,10 +75,11 @@ My vendor folder looks like this:
                 * helpers/
                 * layouts/
                 * widgets/
-
+```
 
 I suggest also to configure the assetManager. My actual configuration is this:
-```
+
+```php
 'assetManager' => [
         'linkAssets' => true,
         'bundles' => [
@@ -114,7 +117,7 @@ The metronic component contains a sample layout view. I've not checked it. I'm w
 
 Here is my sample ```views/layout/main.php```:
 
-```
+```php
 <?php
 
 /* @var $this \yii\web\View */
@@ -164,7 +167,7 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl($asset->sourcePath);
 
 Metronic theme require that you replace yii\helpers\Html with it's helper. So, you have to add a ```config/bootstrap.php``` with the following content:
 
-```
+```php
 <?php
 Yii::$classMap['yii\helpers\Html'] = '@vendor/iamok/yii2-metronic/helpers/Html.php';
 ?>
@@ -173,7 +176,7 @@ Yii::$classMap['yii\helpers\Html'] = '@vendor/iamok/yii2-metronic/helpers/Html.p
 The file bootstrap.php should be loaded before the web application is created. So you need to edit your ```web/index.php``` file 
 and adjust it, and add a require directive. The file content should look like this:
 
-```
+```php
 <?php
 
 // comment out the following two lines when deployed to production
