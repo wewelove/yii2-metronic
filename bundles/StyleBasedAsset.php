@@ -22,21 +22,21 @@ class StyleBasedAsset extends BaseAssetBundle {
     /**
      * @var array css assets
      */
-    public $css = [ ];
+    public $css = [];
 
     /**
      * @var array style based css
      */
     private $styleBasedCss = [
-        Metronic::STYLE_SQUARE => [
+        Metronic::THEME_STYLE_SQUARE => [
             'global/css/components.css',
             'global/css/plugins.css',
         ],
-        Metronic::STYLE_ROUNDED => [
+        Metronic::THEME_STYLE_ROUNDED => [
             'global/css/components-rounded.css',
             'global/css/plugins.css',
         ],
-        Metronic::STYLE_MATERIAL => [
+        Metronic::THEME_STYLE_MATERIAL => [
             'global/css/components-md.css',
             'global/css/plugins-md.css',
         ]
@@ -59,7 +59,7 @@ class StyleBasedAsset extends BaseAssetBundle {
     {
         if (Metronic::getComponent())
         {
-            $css = $this->styleBasedCss[Metronic::getComponent()->style];
+            $css = $this->styleBasedCss[Metronic::getComponent()->themeStyle];
             $this->css = ArrayHelper::merge($css, $this->css);
         }
     }

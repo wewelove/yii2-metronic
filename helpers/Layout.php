@@ -38,33 +38,27 @@ class Layout {
     {
         Html::addCssClass($options, 'page-sidebar-closed-hide-logo');
 
-        if (Metronic::getComponent() && Metronic::STYLE_MATERIAL === Metronic::getComponent()->style)
-        {
+        if (Metronic::getComponent() && Metronic::THEME_STYLE_MATERIAL === Metronic::getComponent()->themeStyle) {
             Html::addCssClass($options, 'page-md');
         }
 
-        if (Metronic::getComponent() && Metronic::LAYOUT_BOXED === Metronic::getComponent()->layoutOption)
-        {
+        if (Metronic::getComponent() && Metronic::LAYOUT_MODE_BOXED === Metronic::getComponent()->layoutMode) {
             Html::addCssClass($options, 'page-boxed');
         }
 
-        if (Metronic::getComponent() && Metronic::HEADER_FIXED === Metronic::getComponent()->headerOption)
-        {
+        if (Metronic::getComponent() && Metronic::HEADER_MODE_FIXED === Metronic::getComponent()->headerMode) {
             Html::addCssClass($options, 'page-header-fixed');
         }
 
-        if (Metronic::getComponent() && Metronic::SIDEBAR_POSITION_RIGHT === Metronic::getComponent()->sidebarPosition)
-        {
+        if (Metronic::getComponent() && Metronic::SIDEBAR_POSITION_RIGHT === Metronic::getComponent()->sidebarPosition) {
             Html::addCssClass($options, 'page-sidebar-reversed');
         }
 
-        if (Metronic::getComponent() && Metronic::SIDEBAR_FIXED === Metronic::getComponent()->sidebarOption)
-        {
+        if (Metronic::getComponent() && Metronic::SIDEBAR_MODE_FIXED === Metronic::getComponent()->sidebarMode) {
             Html::addCssClass($options, 'page-sidebar-fixed');
         }
 
-        if (Metronic::getComponent() && Metronic::FOOTER_FIXED === Metronic::getComponent()->footerOption)
-        {
+        if (Metronic::getComponent() && Metronic::FOOTER_MODE_FIXED === Metronic::getComponent()->footerMode) {
             Html::addCssClass($options, 'page-footer-fixed');
         }
 
@@ -79,7 +73,7 @@ class Layout {
     {
         Html::addCssClass($options, 'page-header navbar');
 
-        if (Metronic::getComponent() && Metronic::HEADER_FIXED === Metronic::getComponent()->headerOption)
+        if (Metronic::getComponent() && Metronic::HEADER_MODE_FIXED === Metronic::getComponent()->headerMode)
         {
             Html::addCssClass($options, 'navbar-fixed-top');
         }

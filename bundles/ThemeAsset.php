@@ -25,9 +25,9 @@ class ThemeAsset extends BaseAssetBundle {
      * @var array css assets
      */
     public $css = [
-        'layouts/{version}/css/layout.css',
-        'layouts/{version}/css/themes/{theme}.css',
-        'layouts/{version}/css/custom.css',
+        'layouts/{layout}/css/layout.css',
+        'layouts/{layout}/css/themes/{themeColor}.css',
+        'layouts/{layout}/css/custom.css',
     ];
 
     /**
@@ -35,8 +35,8 @@ class ThemeAsset extends BaseAssetBundle {
      */
     public $js = [
         'global/scripts/app.js',
-        'layouts/{version}/scripts/layout.js',
-        'layouts/{version}/scripts/demo.js',
+        'layouts/{layout}/scripts/layout.js',
+        'layouts/{layout}/scripts/demo.js',
         'layouts/global/scripts/quick-sidebar.js',
     ];
 

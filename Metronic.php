@@ -32,192 +32,152 @@ class Metronic extends \yii\base\Component
     const ASSETS_LINK = __DIR__ . '/assets';
 
     /**
-     * Theme
-     */
-    const VERSION_1 = 'layout';
-    const VERSION_2 = 'layout2';
-    const VERSION_3 = 'layout3';
-    const VERSION_4 = 'layout4';
-    const VERSION_5 = 'layout5';
-    const VERSION_6 = 'layout6';
-    const VERSION_7 = 'layout7';
-
-    /**
-     * Theme
-     */
-    const THEME_DARK = 'default';
-    const THEME_LIGHT = 'light';
-
-    /**
-     * Style
-     */
-    const STYLE_SQUARE = 'default';
-    const STYLE_ROUNDED = 'rounded';
-    const STYLE_MATERIAL = 'material';
-
-    /**
-     * Layout
-     */
-    const LAYOUT_FLUID = 'default';
-    const LAYOUT_BOXED = 'boxed';
-
-    /**
-     * Header
-     */
-    const HEADER_DEFAULT = 'default';
-    const HEADER_FIXED = 'fixed';
-
-    /**
-     * Header Dropdowns
-     */
-    const HEADER_DROPDOWN_DARK = 'dark';
-    const HEADER_DROPDOWN_LIGHT = 'light';
-
-    /**
-     * Sidebar
-     */
-    const SIDEBAR_DEFAULT = 'default';
-    const SIDEBAR_FIXED = 'fixed';
-
-    /**
-     * Sidebar menu
-     */
-    const SIDEBAR_MENU_ACCORDION = 'accordion';
-    const SIDEBAR_MENU_HOVER = 'hover';
-
-    /**
-     * Sidebar position
-     */
-    const SIDEBAR_POSITION_LEFT = 'left';
-    const SIDEBAR_POSITION_RIGHT = 'right';
-
-    /**
-     * Footer
-     */
-    const FOOTER_DEFAULT = 'default';
-    const FOOTER_FIXED = 'fixed';
-
-    /**
-     * Search string
-     */
-    const PARAM_VERSION = '{version}';
-    const PARAM_THEME = '{theme}';
-
-    /**
-     * UI Colors blue
-     */
-    const UI_COLOR_BLUE = 'blue';
-    const UI_COLOR_BLUE_HOKI = 'blue-hoki';
-    const UI_COLOR_BLUE_STEEL = 'blue-steel';
-    const UI_COLOR_BLUE_MADISON = 'blue-madison';
-    const UI_COLOR_BLUE_CHAMBRAY = 'blue-chambray';
-    const UI_COLOR_BLUE_EBONYCLAY = 'blue-ebonyclay';
-
-    /**
-     * UI Colors green
-     */
-    const UI_COLOR_GREEN = 'green';
-    const UI_COLOR_GREEN_MEADOW = 'green-meadow';
-    const UI_COLOR_GREEN_SEAGREEN = 'green-seagreen';
-    const UI_COLOR_GREEN_TORQUOISE = 'green-torquoise';
-    const UI_COLOR_GREEN_JUNGLE = 'green-jungle';
-    const UI_COLOR_GREEN_HAZE = 'green-haze';
-
-    /**
-     * UI Colors red
-     */
-    const UI_COLOR_RED = 'red';
-    const UI_COLOR_RED_PINK = 'red-pink';
-    const UI_COLOR_RED_SUNGLO = 'red-sunglo';
-    const UI_COLOR_RED_INTENSE = 'red-intense';
-    const UI_COLOR_RED_THUNDERBIRD = 'red-thunderbird';
-    const UI_COLOR_RED_FLAMINGO = 'red-flamingo';
-    const UI_COLOR_RED_HAZE = 'red-haze';
-
-    /**
-     * UI Colors yellow
-     */
-    const UI_COLOR_YELLOW = 'yellow';
-    const UI_COLOR_YELLOW_GOLD = 'yellow-gold';
-    const UI_COLOR_YELLOW_CASABLANCA = 'yellow-casablanca';
-    const UI_COLOR_YELLOW_CRUSTA = 'yellow-crusta';
-    const UI_COLOR_YELLOW_LEMON = 'yellow-lemon';
-    const UI_COLOR_YELLOW_SAFFRON = 'yellow-saffron';
-
-    /**
-     * UI Colors purple
-     */
-    const UI_COLOR_PURPLE = 'purple';
-    const UI_COLOR_PURPLE_PLUM = 'purple-plum';
-    const UI_COLOR_PURPLE_MEDIUM = 'purple-medium';
-    const UI_COLOR_PURPLE_STUDIO = 'purple-studio';
-    const UI_COLOR_PURPLE_WISTERIA = 'purple-wisteria';
-    const UI_COLOR_PURPLE_SEANCE = 'purple-seance';
-
-    /**
-     * UI Colors grey
-     */
-    const UI_COLOR_GREY = 'grey';
-    const UI_COLOR_GREY_CASCADE = 'grey-cascade';
-    const UI_COLOR_GREY_SILVER = 'grey-silver';
-    const UI_COLOR_GREY_STEEL = 'grey-steel';
-    const UI_COLOR_GREY_CARARRA = 'grey-cararra';
-    const UI_COLOR_GREY_GALLERY = 'grey-gallery';
-
-    /**
      * Classes paths
      */
     const CLASS_HTML = '@vendor/iamok/yii2-metronic/helpers/Html.php';
 
     /**
-     * @var string version
+     * Search string
      */
-    public $version = self::VERSION_4;
+    const PARAM_LAYOUT = '{layout}';
+    const PARAM_THEME_COLOR = '{themeColor}';
 
     /**
-     * @var string Theme
+     * @var string layout
      */
-    public $theme = self::THEME_LIGHT;
+    const LAYOUT_1 = 'layout';
+    const LAYOUT_2 = 'layout2';
+    const LAYOUT_3 = 'layout3';
+    const LAYOUT_4 = 'layout4';
+    const LAYOUT_5 = 'layout5';
+    const LAYOUT_6 = 'layout6';
+    const LAYOUT_7 = 'layout7';
 
-    /**
-     * @var string Theme style
-     */
-    public $style = self::STYLE_ROUNDED;
+    public $layout = self::LAYOUT_1;
 
     /**
      * @var string Layout mode
      */
-    public $layoutOption = self::LAYOUT_FLUID;
+    const LAYOUT_MODE_FLUID = 'default';
+    const LAYOUT_MODE_BOXED = 'boxed';
+
+    public $layoutMode = self::LAYOUT_MODE_FLUID;
 
     /**
-     * @var string Header display
+     * @var string Theme color
      */
-    public $headerOption = self::HEADER_FIXED;
+    const THEME_COLOR_DARK = 'default';
+    const THEME_COLOR_LIGHT = 'light';
+
+    const THEME_COLOR_BLUE = 'blue';
+    const THEME_COLOR_BLUE_HOKI = 'blue-hoki';
+    const THEME_COLOR_BLUE_STEEL = 'blue-steel';
+    const THEME_COLOR_BLUE_MADISON = 'blue-madison';
+    const THEME_COLOR_BLUE_CHAMBRAY = 'blue-chambray';
+    const THEME_COLOR_BLUE_EBONYCLAY = 'blue-ebonyclay';
+
+    const THEME_COLOR_GREEN = 'green';
+    const THEME_COLOR_GREEN_MEADOW = 'green-meadow';
+    const THEME_COLOR_GREEN_SEAGREEN = 'green-seagreen';
+    const THEME_COLOR_GREEN_TORQUOISE = 'green-torquoise';
+    const THEME_COLOR_GREEN_JUNGLE = 'green-jungle';
+    const THEME_COLOR_GREEN_HAZE = 'green-haze';
+
+    const THEME_COLOR_RED = 'red';
+    const THEME_COLOR_RED_PINK = 'red-pink';
+    const THEME_COLOR_RED_SUNGLO = 'red-sunglo';
+    const THEME_COLOR_RED_INTENSE = 'red-intense';
+    const THEME_COLOR_RED_THUNDERBIRD = 'red-thunderbird';
+    const THEME_COLOR_RED_FLAMINGO = 'red-flamingo';
+    const THEME_COLOR_RED_HAZE = 'red-haze';
+
+    const THEME_COLOR_YELLOW = 'yellow';
+    const THEME_COLOR_YELLOW_GOLD = 'yellow-gold';
+    const THEME_COLOR_YELLOW_CASABLANCA = 'yellow-casablanca';
+    const THEME_COLOR_YELLOW_CRUSTA = 'yellow-crusta';
+    const THEME_COLOR_YELLOW_LEMON = 'yellow-lemon';
+    const THEME_COLOR_YELLOW_SAFFRON = 'yellow-saffron';
+
+    const THEME_COLOR_PURPLE = 'purple';
+    const THEME_COLOR_PURPLE_PLUM = 'purple-plum';
+    const THEME_COLOR_PURPLE_MEDIUM = 'purple-medium';
+    const THEME_COLOR_PURPLE_STUDIO = 'purple-studio';
+    const THEME_COLOR_PURPLE_WISTERIA = 'purple-wisteria';
+    const THEME_COLOR_PURPLE_SEANCE = 'purple-seance';
+
+    const THEME_COLOR_GREY = 'grey';
+    const THEME_COLOR_GREY_CASCADE = 'grey-cascade';
+    const THEME_COLOR_GREY_SILVER = 'grey-silver';
+    const THEME_COLOR_GREY_STEEL = 'grey-steel';
+    const THEME_COLOR_GREY_CARARRA = 'grey-cararra';
+    const THEME_COLOR_GREY_GALLERY = 'grey-gallery';
+
+    public $themeColor = self::THEME_COLOR_LIGHT;
+
+    /**
+     * @var string Theme style
+     */
+    const THEME_STYLE_SQUARE = 'default';
+    const THEME_STYLE_ROUNDED = 'rounded';
+    const THEME_STYLE_MATERIAL = 'material';
+
+    public $themeStyle = self::THEME_STYLE_SQUARE;
+
+    /**
+     * @var string Header mode
+     */
+    const HEADER_MODE_DEFAULT = 'default';
+    const HEADER_MODE_FIXED = 'fixed';
+
+    public $headerMode = self::HEADER_MODE_FIXED;
 
     /**
      * @var string Header dropdowns
      */
+    const HEADER_DROPDOWN_DARK = 'dark';
+    const HEADER_DROPDOWN_LIGHT = 'light';
+
     public $headerDropdown = self::HEADER_DROPDOWN_DARK;
 
     /**
-     * @var string Sidebar display
+     * @var string Sidebar mode
      */
-    public $sidebarOption = self::SIDEBAR_DEFAULT;
+    const SIDEBAR_MODE_DEFAULT = 'default';
+    const SIDEBAR_MODE_FIXED = 'fixed';
+
+    public $sidebarMode = self::SIDEBAR_MODE_DEFAULT;
 
     /**
-     * @var string Sidebar display
+     * @var string Sidebar menu
      */
+    const SIDEBAR_MENU_ACCORDION = 'accordion';
+    const SIDEBAR_MENU_HOVER = 'hover';
+
     public $sidebarMenu = self::SIDEBAR_MENU_ACCORDION;
+
+    /**
+     * @var string Sidebar style
+     */
+    const SIDEBAR_STYLE_DEFAULT = 'default';
+    const SIDEBAR_STYLE_LIGHT = 'light';
+
+    public $sidebarStyle = self::SIDEBAR_STYLE_DEFAULT;
 
     /**
      * @var string Sidebar position
      */
+    const SIDEBAR_POSITION_LEFT = 'left';
+    const SIDEBAR_POSITION_RIGHT = 'right';
+
     public $sidebarPosition = self::SIDEBAR_POSITION_LEFT;
 
     /**
-     * @var string Footer display
+     * @var string Footer mode
      */
-    public $footerOption = self::FOOTER_DEFAULT;
+    const FOOTER_MODE_DEFAULT = 'defalut';
+    const FOOTER_MODE_FIXED = 'fixed';
+
+    public $footerMode = self::FOOTER_MODE_DEFAULT;
 
     /** @var string IonRangeSlider skin */
     public $ionSliderSkin = IonRangeSliderAsset::SKIN_SIMPLE;
@@ -237,10 +197,6 @@ class Metronic extends \yii\base\Component
      */
     public function init()
     {
-        if (self::SIDEBAR_FIXED === $this->sidebarOption && self::SIDEBAR_MENU_HOVER === $this->sidebarMenu) {
-            throw new InvalidConfigException('Hover Sidebar Menu is not compatible with Fixed Sidebar Mode. Select Default Sidebar Mode Instead.');
-        }
-
         if (!$this->resources) {
             throw new InvalidConfigException('You have to specify resources locations to be able to create symbolic links. Specify "admin" and "global" theme folder locations.');
         }
@@ -248,14 +204,19 @@ class Metronic extends \yii\base\Component
         if (!is_link(self::ASSETS_LINK) && !is_dir(self::ASSETS_LINK)) {
             symlink($this->resources, self::ASSETS_LINK);
         }
+
+        if (self::SIDEBAR_MODE_FIXED === $this->sidebarMode) {
+            $this->sidebarMenu = self::SIDEBAR_MENU_HOVER;
+        }
+
     }
 
     public function parseAssetsParams(&$string)
     {
         if (preg_match('/\{[a-z]+\}/', $string)) {
-            $string = str_replace(static::PARAM_VERSION, $this->version, $string);
+            $string = str_replace(static::PARAM_LAYOUT, $this->layout, $string);
 
-            $string = str_replace(static::PARAM_THEME, $this->theme, $string);
+            $string = str_replace(static::PARAM_THEME_COLOR, $this->themeColor, $string);
         }
     }
 
