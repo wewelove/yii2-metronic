@@ -37,7 +37,7 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl($asset->sourcePath);
 
         <?= $this->render('parts/content.php', ['content' => $content, 'directoryAsset' => $directoryAsset]) ?>
 
-        <?= $this->render('parts/sidebar.php', ['directoryAsset' => $directoryAsset]) ?>
+        <?= $this->render('parts/chatbar.php', ['directoryAsset' => $directoryAsset]) ?>
 
     </div>
 

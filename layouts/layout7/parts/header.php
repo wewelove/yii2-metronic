@@ -48,6 +48,7 @@ use iamok\metronic\widgets\Badge;
                 <button class="menu-close">&times;</button>
             </div>
         </div>
+        
         <div class="page-logo">
             <a href="index.html">
                 <img src="<?= $directoryAsset ?>/layouts/layout7/img/logo.png" alt="logo" class="logo-default" /> 
