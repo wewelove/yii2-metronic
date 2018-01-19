@@ -67,20 +67,37 @@ use yii\widgets\ActiveForm as CoreActiveForm;
 class Menu extends \yii\widgets\Menu {
 
     /**
+     * @var array item options.
+     */
+    public $itemOptions = [
+        'class' => 'nav-item'
+    ];
+
+    /**
      * @var boolean whether to activate parent menu items when one of the corresponding child menu items is active.
      * The activated parent menu items will also have its CSS classes appended with [[activeCssClass]].
      */
     public $activateParents = true;
 
     /**
-     * @var string the CSS class that will be assigned to the first item in the main menu or each submenu.
+     * @var string the CSS class that will be assigned to the active item in the main menu or each submenu.
+     */
+    public $activeCssClass = 'active open';
+
+    /**
+     * @var string the CSS class that will be assigned to the first item in the main menu.
      */
     public $firstItemCssClass = 'start';
 
     /**
-     * @var string the CSS class that will be assigned to the last item in the main menu or each submenu.
+     * @var string the CSS class that will be assigned to the last item in the main menu.
      */
     public $lastItemCssClass = 'last';
+    
+    /**
+     * @var string the CSS class that will be assigned to the header item in the main menu.
+     */
+    public $headerCssClass = 'heading';
 
     /**
      * @var string the template used to render a list of sub-menus.
@@ -96,8 +113,13 @@ class Menu extends \yii\widgets\Menu {
      * The token `{arrow}` will be replaced with the corresponding link arrow.
      * This property will be overridden by the `template` option set in individual menu items via [[items]].
      */
-    public $linkTemplate = '<a href="{url}">{icon}{label}{badge}{arrow}</a>';
+    public $linkTemplate = '{icon}{label}{badge}{selected}{arrow}';
 
+    /**
+     * @var int icon level.
+     */
+    public $iconLevel = 2;
+    
     /**
      * @var bool Indicates whether menu is visible.
      */
@@ -135,48 +157,55 @@ class Menu extends \yii\widgets\Menu {
      */
     protected function renderItems($items, $level = 1)
     {
-        $n = count($items);
+        $last  = count($items) - 1;
         $lines = [];
-        foreach ($items as $i => $item)
-        {
-            $options = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
-            $tag = ArrayHelper::remove($options, 'tag', 'li');
-            $class = [];
-            if ($item['active'])
-            {
-                $class[] = $this->activeCssClass;
-            }
-            if ($i === 0 && $this->firstItemCssClass !== null)
-            {
-                $class[] = $this->firstItemCssClass;
-            }
-            if ($i === $n - 1 && $this->lastItemCssClass !== null)
-            {
-                $class[] = $this->lastItemCssClass;
-            }
-            if (!empty($class))
-            {
-                if (empty($options['class']))
-                {
-                    $options['class'] = implode(' ', $class);
+
+        foreach ($items as $i => $item) {
+
+            $tag     = ArrayHelper::remove($options, 'tag', 'li');
+            $header  = ArrayHelper::getValue($item, 'header', false);
+
+            if ($header && $level === 1) {
+                $options['class'] = $this->headerCssClass;
+                $content = $this->renderHeader($item);
+            } else {
+                $menu    = '';
+                $submenu = '';
+
+                $options = ArrayHelper::merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
+                $active  = ArrayHelper::getValue($item, 'active', false);
+                $items   = ArrayHelper::getValue($item, 'items', []);
+                $class   = isset($options['class']) ? [$options['class']] : [];
+                
+                if ($active) {
+                    $class[] = $this->activeCssClass;
                 }
-                else
-                {
-                    $options['class'] .= ' ' . implode(' ', $class);
+
+                if ($level === 1 && $i === 0 && $this->firstItemCssClass !== null) {
+                    $class[] = $this->firstItemCssClass;
                 }
+
+                if ($level === 1 && $i === $last && $this->lastItemCssClass !== null) {
+                    $class[] = $this->lastItemCssClass;
+                }
+
+                $options['class'] = implode(' ', $class);
+
+                $item['level'] = $level;
+                $menu = $this->renderItem($item);
+
+                if (!empty($items)) {
+                    $submenu = strtr($this->submenuTemplate, [
+                        '{items}' => $this->renderItems($items, $level + 1),
+                    ]);
+                }
+
+                $content = $menu . $submenu;
             }
 
-            // set parent flag
-            $item['level'] = $level;
-            $menu = $this->renderItem($item);
-            if (!empty($item['items']))
-            {
-                $menu .= strtr($this->submenuTemplate, [
-                    '{items}' => $this->renderItems($item['items'], $level + 1),
-                ]);
-            }
-            $lines[] = Html::tag($tag, $menu, $options);
+            $lines[] = Html::tag($tag, $content, $options);
         }
+
         return implode("\n", $lines);
     }
 
@@ -188,26 +217,48 @@ class Menu extends \yii\widgets\Menu {
      */
     protected function renderItem($item)
     {
-        return strtr(ArrayHelper::getValue($item, 'template', $this->linkTemplate), [
-            '{url}' => $this->_pullItemUrl($item),
-            '{label}' => $this->_pullItemLabel($item),
-            '{icon}' => $this->_pullItemIcon($item),
-            '{arrow}' => $this->_pullItemArrow($item),
-            '{badge}' => $this->_pullItemBadge($item),
+        $header = ArrayHelper::getValue($item, 'header', false);
+        $level  = ArrayHelper::getValue($item, 'level', 1);
+        $label  = ArrayHelper::getValue($item, 'label', '');
+        $items  = ArrayHelper::getValue($item, 'items', []);
+
+        $options['class'] = empty($items) ? 'nav-link' : 'nav-link nav-toggle';
+
+        $text = strtr(ArrayHelper::getValue($item, 'template', $this->linkTemplate), [
+            '{icon}' => $this->renderItemIcon($item),
+            '{label}' => $this->renderItemLabel($item),
+            '{badge}' => $this->renderItemBadge($item),
+            '{selected}' => $this->renderItemSelected($item),
+            '{arrow}' => $this->renderItemArrow($item),
         ]);
+
+        $url = $this->renderItemUrl($item);
+        
+        return Html::a($text, $url, $options);
     }
 
     /**
-     * Pulls out item url
+     * Renders the content of a menu header.
+     * @param array $item the menu item to be rendered. Please refer to [[items]] to see what data might be in the item.
+     * @return string the rendering result
+     */
+    protected function renderHeader($item)
+    {
+        $label  = ArrayHelper::getValue($item, 'label', '');
+ 
+        return Html::tag('h3', $label, ['class' => 'uppercase']);
+    }
+
+    /**
+     * Renders out item url
      * @param array $item given item
      * @return string item url
      */
-    private function _pullItemUrl($item)
+    private function renderItemUrl($item)
     {
         $url = ArrayHelper::getValue($item, 'url', '#');
 
-        if ('#' === $url)
-        {
+        if ('#' === $url) {
             return 'javascript:;';
         }
 
@@ -215,35 +266,28 @@ class Menu extends \yii\widgets\Menu {
     }
 
     /**
-     * Pulls out item label
+     * Renders out item label
      * @param array $item given item
      * @return string item label
      */
-    private function _pullItemLabel($item)
+    private function renderItemLabel($item)
     {
         $label = ArrayHelper::getValue($item, 'label', '');
 
-        $level = ArrayHelper::getValue($item, 'level', 1);
-
-        if (1 == $level)
-        {
-            return Html::tag('span', $label, ['class' => 'title']);
-        }
-
-        return sprintf(' %s', $label);
+        return Html::tag('span', $label, ['class' => 'title']);  
     }
 
     /**
-     * Pulls out item icon
+     * Renders out item icon
      * @param array $item given item
      * @return string item icon
      */
-    private function _pullItemIcon($item)
+    private function renderItemIcon($item)
     {
         $icon = ArrayHelper::getValue($item, 'icon', null);
+        $level = ArrayHelper::getValue($item, 'level', 1);
 
-        if ($icon)
-        {
+        if ($icon && $level <= $this->iconLevel) {
             return Html::tag('i', '', ['class' => $icon]);
         }
 
@@ -251,32 +295,46 @@ class Menu extends \yii\widgets\Menu {
     }
 
     /**
-     * Pulls out item arrow
+     * Renders out item arrow
      * @param array $item given item
      * @return string item arrow
      */
-    private function _pullItemArrow($item)
+    private function renderItemArrow($item)
+    {
+        $items = ArrayHelper::getValue($item, 'items', []);
+
+        if (empty($items)) {
+            return '';
+        }
+
+        $active = ArrayHelper::getValue($item, 'active', false);
+        $options['class'] = $active ? 'arrow open' : 'arrow';
+
+        return Html::tag('span', '',  $options);
+    }
+
+    /**
+     * Renders out item selected
+     * @param array $item given item
+     * @return string item selected
+     */
+    private function renderItemSelected($item)
     {
         $active = ArrayHelper::getValue($item, 'active', false);
 
-        $level = ArrayHelper::getValue($item, 'level', 1);
-
-        $items = ArrayHelper::getValue($item, 'items', []);
-
-        if (!empty($items))
-        {
-            return Html::tag('span', '', ['class' => 'arrow' . ($active ? ' open' : '')]);
+        if ($active) {
+            return Html::tag('span', '',  ['class' => 'selected']);
         }
 
         return '';
     }
 
     /**
-     * Pulls out item badge
+     * Renders out item badge
      * @param array $item given item
      * @return string item badge
      */
-    private function _pullItemBadge($item)
+    private function renderItemBadge($item)
     {
         return ArrayHelper::getValue($item, 'badge', '');
     }
@@ -288,15 +346,18 @@ class Menu extends \yii\widgets\Menu {
     {
         Html::addCssClass($this->options, 'page-sidebar-menu');
 
-        if (Metronic::getComponent() && Metronic::SIDEBAR_MENU_HOVER === Metronic::getComponent()->sidebarMenu)
-        {
+        if (Metronic::getComponent() && Metronic::SIDEBAR_STYLE_LIGHT === Metronic::getComponent()->sidebarStyle) {
+            Html::addCssClass($this->options, 'page-sidebar-menu-light');
+        }
+
+        if (Metronic::getComponent() && Metronic::SIDEBAR_MENU_HOVER === Metronic::getComponent()->sidebarMenu) {
             Html::addCssClass($this->options, 'page-sidebar-menu-hover-submenu');
         }
 
         $this->options['data-slide-speed'] = 200;
         $this->options['data-auto-scroll'] = 'true';
         $this->options['data-keep-expanded'] = 'false';
-        $this->options['data-height'] = 261;
+
     }
 
 }
