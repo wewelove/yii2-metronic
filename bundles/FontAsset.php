@@ -9,6 +9,7 @@ namespace iamok\metronic\bundles;
 class FontAsset extends BaseAssetBundle
 {
     public $css = [
+        'global/fonts/font-sans.css',
         'global/plugins/font-awesome/css/font-awesome.min.css',
     ];
 }
